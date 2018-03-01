@@ -1,22 +1,25 @@
+
+
 module Project1_top(SW, KEY, HEX0, HEX1, LED);
-	input [9:0]SW;			//instantiate all switches
-	input [1:0]KEY;		//instantiate the key buttons
+	input [9:0]SW;
+	input [1:0]KEY;
+	output[7:0]HEX0;
+	output[7:0]HEX1;
+	output[9:0]LED;
 	
-	output [9:0]LED;		//LEDs as output
-	output [8:0]HEX0;		//will display 1st hex digit
-	output [8:0]HEX1;		//will display 2nd hex digit
+	wire [3:0]X;
+	wire [3:0]Y;
+	wire [7:0]Z;
 	
-	wire arithmeticBinary[8:0];	//connects Arithmetic to m1 & m2
-	wire logicalBinary[7:0];		//connects Logical to m1 & m2
-	wire comparisonBinary[3:0];	//connects Binary to m1 & m2
-	//wire magic[9:0] placed into m2
+	assign HEX0[7] = 1'b0001;
+	assign HEX1[7] = 1'b0001;
 	
-	Arithmetic(SW[9:0], arithmeticBinary[8:0]);	//defines wire connections to Arithmetic module
-	Logical(SW[9:0], logicalBinary[8:0]);			//defines wire connections to Logical module
-	Comparison(SW[9:0], comparisonBinary[8:0]);	//defines wire connections to Comparison module
-	//Magic();
+	assign X = SW[3:0];
+	assign Y = SW[7:4];
+	assign Z = SW[7:0];
 	
-	Multiplexer m1(arithmeticBinary[8:0], logicalBinary[7:0], comparisonBinary[3;0],hexDisplay[7:0]);
-	Multiplexer m2(arithmeticBinary[8:0], logicalBinary[7:0], comparisonBinary[3:0],LED[9:0]);
-	
-endmodule 
+	//add Inst1(1'b0, X[3:0], Y[3:0], S, Cout); //LEAVE THIS COMMENTED OUT TO TEST 7 SEGMENT DISPLAY
+	//SevenSegment Inst_1(S, HEX0, HEX1);		  //LEAVE THIS COMMENTED OUT TO TEST 7 SEGMENT DISPLAY
+	SevenSegment Inst_1(SW, HEX0, HEX1);		  //DO NOT LEAVE THIS COMMENTED OUT TO TEST 7 SEGMENT DISPLAY
+	//SevenSegment Inst_1(S, HEX0, HEX1);       //USE THIS INSTANTIATION FOR TESTING THE ADDER (DOES NOT WORK YET)
+endmodule
