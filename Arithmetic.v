@@ -18,6 +18,8 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	wire productOverflow;
 	wire [7:0]quotient;
 	wire remainder;
+	wire dp[1:0];
+	
 	
 	//instantiate add.v
 	add addInst1(1'b0, x[3:0], y[3:0], sum[3:0], sumCarry); 
@@ -37,6 +39,11 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	//instantiate an instance of MUX. This returns the overflow bit from addition or subtraction to Project1_top
 	multiplexer muxAddSuboverflowInst1$1(operation[1:0], {1'b0, sumCarry}, {1'b0, differenceCarry}, 2'b00, 2'b00, addSuboverflow);
 	
+	//instantiate an instance of MUX. This returns the overflow bit from multiplication or division to Project1_top
+	//multiplexer muxMultDicoverflowInst1$1(operation[1:0], 2'b00, {1'b0, productOverflow}, 2'b00,{1'b0, remainder}); //,  dp[1:0]);
+	
+	//instantiate an instance of decimalOverflow. This returns the overflow bit from multiplication or division to Project1_top
+	decimalOverflow(operation[1:0], productOverflow, remainder);  // , dp);
 endmodule
 	
 

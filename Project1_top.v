@@ -36,10 +36,13 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	assign HEX1[7] = 1'b0001;	//turns off decimal point on HEX1 for testing
 	
 	//instantiate an instance of multiplexer. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
-	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b1111, logicalBinary[3:0]}, {4'b0000,comparisonBinary[3:0]}, 8'b11111111, hexDisplay[7:0]);
+	//multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0000, logicalBinary[3:0]}, {4'b0000, comparisonBinary[3:0]}, {8'b00111111}, hexDisplay[7:0]);
+	
+	//instantiate an instance of multiplexer for testing keyreadder. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
+	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0001, logicalBinary[3:0]}, {4'b0011, comparisonBinary[3:0]}, {8'b00101111}, hexDisplay[7:0]);
 	
 	//instantiate an instance of the keyReader module.  Reads the KEY select buttons and writes values to MODE register
-	keyReader keyReaderInst1(KEY, MODE);
+	keyReader keyReaderInst1(KEY[1:0], MODE[1:0]);
 
 	
 	//instantiate an instance of the arithmetic module
