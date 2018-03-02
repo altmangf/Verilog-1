@@ -18,7 +18,7 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	wire [1:0]OPERATION;			//bits to select the operation of each module. eg. in Arithmetic.v,  select between add, subtract, multiply, divide
 	wire [7:0]arithmeticBinary; 
 	wire [3:0]logicalBinary; 
-	wire [3:0]comparisonBinary; 
+	wire [7:0]comparisonBinary; 
 	wire [7:0]hexDisplay;
 	wire arithmeticOverflow;	
 	
@@ -36,10 +36,8 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	assign HEX1[7] = 1'b0001;	//turns off decimal point on HEX1 for testing
 	
 	//instantiate an instance of multiplexer. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
-	//multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0000, logicalBinary[3:0]}, {4'b0000, comparisonBinary[3:0]}, {8'b00111111}, hexDisplay[7:0]);
+	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0000, logicalBinary[3:0]}, {4'b0000, comparisonBinary[3:0]}, {8'b00111111}, hexDisplay[7:0]);
 	
-	//instantiate an instance of multiplexer for testing keyreadder. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
-	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0001, logicalBinary[3:0]}, {4'b0011, comparisonBinary[3:0]}, {8'b00101111}, hexDisplay[7:0]);
 	
 	//instantiate an instance of the keyReader module.  Reads the KEY select buttons and writes values to MODE register
 	keyReader keyReaderInst1(KEY[1:0], MODE[1:0]);
@@ -48,6 +46,9 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	//instantiate an instance of the arithmetic module
 	Arithmetic ArithmeticInst1(X[3:0], Y[3:0], Ynot[3:0], Z[7:0], OPERATION[1:0], arithmeticBinary[7:0], arithmeticOverflow);
 	
+	
+	//instantiate an instance of the comparison module
+	comparison compareInst1(X[3:0], Y[3:0], OPERATION[1:0], comparisonBinary); 
 	
 	
 	//instantiate an instance of the SevenSegment decoder

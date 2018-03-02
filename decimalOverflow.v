@@ -5,7 +5,7 @@ module decimalOverflow(select, productOfl, quotientOfl, dp);
 	input quotientOfl;
 	output reg [1:0]dp;
 	
-	always @(select)
+	always @(*)
 		begin
 			case (select)
 			2'b00: dp =2'b00; 				//add

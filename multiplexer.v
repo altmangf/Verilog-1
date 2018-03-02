@@ -9,7 +9,7 @@ module multiplexer (SELECT, A, B, C, D, OUT);	//nbits,
 
  output reg [7:0]OUT;				// The output of the MUX 
  
- always @(SELECT) 
+ always @(SELECT,A,B,C,D) 
 	begin
 		if (SELECT == 2'b00) 
 			OUT = A;
@@ -18,6 +18,9 @@ module multiplexer (SELECT, A, B, C, D, OUT);	//nbits,
 		else if (SELECT == 2'b10)
 			OUT = C;
 		else if (SELECT == 2'b11) 
-			OUT = D; 
+			OUT = D;
+		else
+			OUT = A;
 		end
  endmodule 
+ 

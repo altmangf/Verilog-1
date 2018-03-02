@@ -1,10 +1,12 @@
-/*
-module logicalEqual(x, y, boolean)
-	output reg boolean;
+module logicalEqual(x, y, equalBoolean);
+	input [3:0]x;
+	input [3:0]y;
+	output reg equalBoolean;
 	
 	always @(x,y)
 		begin
-			if (x == y) boolean=1;
-			else boolean=0;
+			if (x == y) equalBoolean=1;
+			else equalBoolean=0;
+		end
 endmodule
-*/		
+		
