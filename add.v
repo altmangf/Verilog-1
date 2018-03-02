@@ -1,5 +1,5 @@
 module add(carryin, Xin, Yin, S, carryout);
-	parameter n=8;
+	parameter n=4;
 	input 	carryin;
 	input 	[n-1:0]Xin;
 	input		[n-1:0]Yin;

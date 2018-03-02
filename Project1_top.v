@@ -20,6 +20,7 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	wire [3:0]logicalBinary; 
 	wire [7:0]comparisonBinary; 
 	wire [7:0]hexDisplay;
+	wire [9:0]LEDDisplay;
 	wire arithmeticOverflow;	
 	
 	//this code splits the bits which come from the switches on the DE10-LITE so that they
@@ -30,13 +31,16 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	assign OPERATION = SW[9:8];
 	assign Ynot = ((~Y)+1'b1);
 	
-	assign LED[7:0] = arithmeticBinary[7:0];	//lights LED based on Sum from adder. for testing.
+	assign LED[7:0] = LEDDisplay[7:0];	//lights LED based on Sum from adder. for testing.
 	assign LED[8] = arithmeticOverflow;			//lights LED9 if there is overflow from adder/subtractor
 	assign HEX0[7] = 1'b0001;	//turns off decimal point on HEX0 for testing
 	assign HEX1[7] = 1'b0001;	//turns off decimal point on HEX1 for testing
 	
 	//instantiate an instance of multiplexer. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
-	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0000, logicalBinary[3:0]}, {4'b0000, comparisonBinary[3:0]}, {8'b00111111}, hexDisplay[7:0]);
+	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0, logicalBinary[3:0]}, {4'b0, comparisonBinary[3:0]}, 8'b0, hexDisplay[7:0]);
+	
+	//instantiate an instance of multiplexer. This decides which of the module are output to the LED display. eg. Arithmetic, Logical, Comparison, 
+	multiplexer muxLEDDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0, logicalBinary[3:0]}, {4'b0, comparisonBinary[3:0]}, 8'b0, LEDDisplay[7:0]);
 	
 	
 	//instantiate an instance of the keyReader module.  Reads the KEY select buttons and writes values to MODE register
