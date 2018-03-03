@@ -52,7 +52,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdiv
 	//multiplexer muxMultDicoverflowInst1$1(operation[1:0], 2'b00, {1'b0, productOverflow}, 2'b00,{1'b0, remainder}); //,  dp[1:0]);
 	
 	//instantiate an instance of decimalOverflow. This returns the overflow bit from multiplication or division to Project1_top
-	decimalOverflow(operation[1:0], productOverflow, remainder, decimalPoint);
+	decimalOverflow decOvfl(operation[1:0], productOverflow, remainder, decimalPoint);
 endmodule
 	
 

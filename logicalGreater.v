@@ -11,7 +11,7 @@ module logicalGreater(x, y, greaterBoolean);
 	
 	always @(x,y)
 		begin
-			if (x == y) greaterBoolean=1;
+			if (x > y) greaterBoolean=1;
 			else greaterBoolean=0;
 		end
 endmodule

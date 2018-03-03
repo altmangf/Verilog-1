@@ -11,16 +11,17 @@ module max(x, y, maxValue);
 	
 	//WE CANNOT USE THIS CODE! WE MUST DERIVE EQUATIONS
 	
+	
 	always @(x, y)
 	begin
 		if (x-y<0)
-			maxValue = y;
+			maxValue[3:0] = y[3:0];
 		else if	(y-x<0)
-			maxValue = x;
+			maxValue[3:0] = x[3:0];
 		else if (y-x==0)
-			maxValue = 0;
+			maxValue[3:0] = 4'b00;
 		else
-			maxValue = 0;
+			maxValue = 4'b00;
 	end
 		
 	

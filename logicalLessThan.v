@@ -11,7 +11,7 @@ module logicalLessthan(x, y, lessthanBoolean);
 	
 	always @(x,y)
 		begin
-			if (x == y) lessthanBoolean=1;
+			if (x < y) lessthanBoolean=1;
 			else lessthanBoolean=0;
 		end
 endmodule
