@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module multiplexer2_1 (SELECT, A, B, OUT);	
  
  input [1:0]SELECT; 	// 1-bit control signal (MODE) 

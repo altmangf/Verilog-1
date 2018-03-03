@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module comparison (x, y, operation, returnMax); //returnBoolean, 
 
 	input [3:0]x;
