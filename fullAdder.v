@@ -1,3 +1,8 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
 
 module fullAdder (Cin, x, y, s, Cout);
 	input Cin, x , y;

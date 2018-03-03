@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module SevenSegment(hexBinaryIn, HEX0, HEX1);
 	input  [7:0]hexBinaryIn;
 	output reg[6:0]HEX0;

@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module add(carryin, Xin, Yin, S, carryout);
 	parameter n=4;
 	input 	carryin;

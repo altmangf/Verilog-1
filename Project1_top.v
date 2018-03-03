@@ -1,3 +1,8 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
 
 
 module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
@@ -17,11 +22,14 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	wire [9:0]LED;
 	wire [1:0]OPERATION;			//bits to select the operation of each module. eg. in Arithmetic.v,  select between add, subtract, multiply, divide
 	wire [7:0]arithmeticBinary; 
-	wire [3:0]logicalBinary; 
+	wire [7:0]logicalBinary; 
 	wire [7:0]comparisonBinary; 
 	wire [7:0]hexDisplay;
 	wire [9:0]LEDDisplay;
-	wire arithmeticOverflow;	
+	wire [1:0]ofldecimalPoint;
+	wire [1:0]decimalpointOut;
+	wire arithmeticOverflow;
+	wire LED9overflow;
 	
 	//this code splits the bits which come from the switches on the DE10-LITE so that they
 	//can be processed in different modules.
@@ -32,28 +40,35 @@ module Project1_top(SW, KEY, HEX0, HEX1, LED);//, MODE);
 	assign Ynot = ((~Y)+1'b1);
 	
 	assign LED[7:0] = LEDDisplay[7:0];	//lights LED based on Sum from adder. for testing.
-	assign LED[8] = arithmeticOverflow;			//lights LED9 if there is overflow from adder/subtractor
-	assign HEX0[7] = 1'b0001;	//turns off decimal point on HEX0 for testing
-	assign HEX1[7] = 1'b0001;	//turns off decimal point on HEX1 for testing
+	assign LED[8] = LED9overflow;			//lights LED9 if there is overflow from adder/subtractor
+	assign HEX0[7] = ~decimalpointOut[0];	//turns off decimal point on HEX0 for testing
+	assign HEX1[7] = ~decimalpointOut[1];	//turns off decimal point on HEX1 for testing
 	
-	//instantiate an instance of multiplexer. This decides which of the module are output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
-	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0, logicalBinary[3:0]}, {4'b0, comparisonBinary[3:0]}, 8'b0, hexDisplay[7:0]);
+	//instantiate an instance of multiplexer. This decides which module will output to the 7-segment display. eg. Arithmetic, Logical, Comparison, 
+	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[3:0], {4'b0, comparisonBinary[3:0]}, 8'b0, hexDisplay[7:0]);
 	
-	//instantiate an instance of multiplexer. This decides which of the module are output to the LED display. eg. Arithmetic, Logical, Comparison, 
-	multiplexer muxLEDDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], {4'b0, logicalBinary[3:0]}, {4'b0, comparisonBinary[3:0]}, 8'b0, LEDDisplay[7:0]);
+	//instantiate an instance of multiplexer. This decides which module will output to the LED display. eg. Arithmetic, Logical, Comparison, 
+	multiplexer muxLEDDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[3:0], {4'b0, comparisonBinary[3:0]}, 8'b0, LEDDisplay[7:0]);
 	
+	//instantiate an instance of multiplexer. This decides which module will output to the decimal point. eg. Arithmetic, Logical, Comparison, 
+	multiplexer muxdecimalPointInst1$1(MODE[1:0], ofldecimalPoint[1:0], 2'b0, 2'b0, 2'b0, decimalpointOut[1:0]);
+	
+	//instantiate an instance of multiplexer. This decides if LED9 can light if there is overflow from add or subtract
+	multiplexer LED9Inst1$1(MODE[1:0], arithmeticOverflow, 2'b0, 2'b0, 2'b0, LED9overflow);
 	
 	//instantiate an instance of the keyReader module.  Reads the KEY select buttons and writes values to MODE register
 	keyReader keyReaderInst1(KEY[1:0], MODE[1:0]);
 
 	
 	//instantiate an instance of the arithmetic module
-	Arithmetic ArithmeticInst1(X[3:0], Y[3:0], Ynot[3:0], Z[7:0], OPERATION[1:0], arithmeticBinary[7:0], arithmeticOverflow);
+	Arithmetic ArithmeticInst1(X[3:0], Y[3:0], Ynot[3:0], Z[7:0], OPERATION[1:0], arithmeticBinary[7:0], arithmeticOverflow, ofldecimalPoint[1:0]);
 	
 	
 	//instantiate an instance of the comparison module
 	comparison compareInst1(X[3:0], Y[3:0], OPERATION[1:0], comparisonBinary); 
 	
+	//instantiate an instance of the logical module
+	logical logicalInst1(X[3:0], Y[3:0], Z[7:0], OPERATION[1:0], logicalBinary); 
 	
 	//instantiate an instance of the SevenSegment decoder
 	SevenSegment Inst_1(hexDisplay[7:0], HEX0, HEX1);       

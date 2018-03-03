@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module logicalEqual(x, y, equalBoolean);
 	input [3:0]x;
 	input [3:0]y;

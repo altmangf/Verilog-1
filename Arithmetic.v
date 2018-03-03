@@ -1,5 +1,10 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
 
-module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
+module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdivOverflow);
 
 	input [3:0]x;
 	input [3:0]y;
@@ -9,7 +14,8 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	
 	output[7:0]returnValue;
 	output addSuboverflow;
-
+	output [1:0]multdivOverflow;
+	
 	wire [7:0]sum;
 	wire sumCarry;
 	wire [7:0]difference;
@@ -18,8 +24,11 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	wire productOverflow;
 	wire [7:0]quotient;
 	wire remainder;
-	wire dp[1:0];
+	wire [1:0]decimalPoint;
 	
+	assign multdivOverflow = decimalPoint[1:0];
+	assign productOverflow = z[7];
+	assign remainder = z[0];
 	
 	//instantiate add.v
 	add addInst1(1'b0, x[3:0], y[3:0], sum[7:0], sumCarry); 
@@ -28,10 +37,10 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	add subtractInst1(1'b0, x[3:0], ynot[3:0], difference[7:0], differenceCarry); 
 	
 	//instantiate multiply.v
-	multiply multiplyInst1(z[7:0], product[7:0], productOverflow);  
+	multiply multiplyInst1(z[7:0], product[7:0]);//, productOverflow);  
 	
 	//instantiate divide.v
-	divide divideInst1(z[7:0], quotient[7:0], remainder);
+	divide divideInst1(z[7:0], quotient[7:0]);//, remainder);
 	
 	//instantiate an instance of the MUX. This selects the module which outputs to the 7 segment display.
 	multiplexer muxAdderInst1$7(operation[1:0], sum[7:0], difference[7:0], product[7:0], quotient[7:0], returnValue[7:0]);
@@ -43,7 +52,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow);
 	//multiplexer muxMultDicoverflowInst1$1(operation[1:0], 2'b00, {1'b0, productOverflow}, 2'b00,{1'b0, remainder}); //,  dp[1:0]);
 	
 	//instantiate an instance of decimalOverflow. This returns the overflow bit from multiplication or division to Project1_top
-	decimalOverflow(operation[1:0], productOverflow, remainder);  // , dp);
+	decimalOverflow(operation[1:0], productOverflow, remainder, decimalPoint);
 endmodule
 	
 

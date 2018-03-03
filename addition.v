@@ -1,3 +1,11 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
+//This code is based upon the adder in the book 'Fundamentals of Digital Logic with Verilog, 3rd Edition, by Brown and Vranesic.
+
 module adder(carryin, X, Y, S, carryout);
 	parameter n=4;
 	input carryin;

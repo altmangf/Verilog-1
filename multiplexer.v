@@ -1,3 +1,9 @@
+/*
+Gabriel Altman
+ECEN 2350 Digital Logic
+March, 2018
+*/
+
 module multiplexer (SELECT, A, B, C, D, OUT);	//nbits,
  parameter  q = 7;
  //input [1:0]nbits;
