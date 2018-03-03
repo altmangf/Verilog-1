@@ -29,7 +29,7 @@
 #    to preserve global assignments across Quartus Prime versions.
 #
 # -------------------------------------------------------------------------- #
-
+set_global_assignment -name NUM_PARALLEL_PROCESSORS 2
 set_global_assignment -name IP_COMPONENT_REPORT_HIERARCHY Off
 set_global_assignment -name IP_COMPONENT_INTERNAL Off
 set_global_assignment -name PROJECT_SHOW_ENTITY_NAME On
