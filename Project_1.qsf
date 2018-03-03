@@ -153,7 +153,6 @@ set_global_assignment -name VERILOG_FILE addition.v
 set_global_assignment -name VERILOG_FILE add.v
 set_global_assignment -name VERILOG_FILE Project1_top.v
 set_global_assignment -name VERILOG_FILE decimalOverflow.v
-set_global_assignment -name VERILOG_FILE keyReader2.v
 set_global_assignment -name VERILOG_FILE logicalOr.v
 set_global_assignment -name VERILOG_FILE logicalAnd.v
 set_global_assignment -name VERILOG_FILE logicalNot.v

@@ -18,9 +18,9 @@ module maxTT(x, y, maxValue);
 	always @(*) 
 	begin
 		if (maxValueBoolean == 1)
-			maxValue = y;
+			maxValue = y[3:0];
 		else if (maxValueBoolean ==0)
-			maxValue = x;
+			maxValue = x[3:0];
 	end
 
 	

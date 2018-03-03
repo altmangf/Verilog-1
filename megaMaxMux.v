@@ -33,7 +33,7 @@ module megaMaxMux(x, y, maxValueBoolean);
 	assign maxMux3  = y[3]+y[2];
 	assign maxMux4  = y[3]+(y[2]&(y[1]+y[0]));
 	assign maxMux5  = y[3]+(y[2]&y[1]);
-	assign maxMux6  = y[3]+(y[2]+y[1]+y[0]);
+	assign maxMux6  = y[3]&(y[2]+y[1]+y[0]);
 	assign maxMux7  = y[3];
 	assign maxMux8  = y[3]&(y[2]+y[1]+y[0]);
 	assign maxMux9  = y[3]&(y[2]+y[1]);
