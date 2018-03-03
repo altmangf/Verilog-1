@@ -8,10 +8,10 @@ March, 2018
 module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	input [9:0]SW;					//SW are the 10 switches on the DE10-lite
 	input [1:0]KEY;				//KEY are the 2 keys on the DE10-lite
-	output[7:0]HEX0;				//the first 7-segment display
-	output[7:0]HEX1;				//the second 7-segment display
-	output[7:0]HEX4;
-	output[7:0]HEX5;
+	output[7:0]HEX0;				//the 0th 7-segment display
+	output[7:0]HEX1;				//the 1st 7-segment display
+	output[7:0]HEX4;				//the 4th 7-degment display. This displays the currently selected OPERATION. eg. add, subtract, multiply, divide
+	output[7:0]HEX5;				//the 5th 7-segment display. This displays the currently selected MODE. eg. arithmetic.v, logical.v, comparison.v, magic.v
 	output[9:0]LED;				//the 10 leds on the DE10-lite
 	
 	//output reg[1:0]MODE;			//register so we can map the KEY bits to MODE bits 
@@ -39,7 +39,7 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	assign Y = SW[7:4];			//sends bits 7-4 from switches to Y
 	assign Z = SW[7:0];			//sends bits 7-0 from switches to Z
 	assign OPERATION = SW[9:8];//sets the OPERATION bits. OPERATION selects the operation that each mode displays. eg. addition, subtraction, multiplication, division for the Arithmetic module.
-	assign Ynot = ((~Y)+1'b1	//makes a 2's compliment of Y for the subtractor
+	assign Ynot = ((~Y)+1'b1;	//makes a 2's compliment of Y for the subtractor
 	
 	assign LED[7:0] = LEDDisplay[7:0];		//lights LED based on Sum from adder. for testing.
 	assign LED[8] = LED9overflow;				//lights LED9 if there is overflow from adder/subtractor
