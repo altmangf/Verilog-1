@@ -19,12 +19,12 @@ module logical(x, y, z, operation, returnLogical);
 
 
 //instantiate instances of logical modules.	
-logicalAnd	andInst	(x[3:0], y[3:0], andValue);
-logicalOr	orInst	(x[3:0], y[3:0], orValue);
-logicalExor exorInst	(x[3:0], y[3:0], exorValue);
-logicalNot	notInst	(z[7:0], notValue[3:0]);
+logicalAnd	andInst	(x[3:0], y[3:0], andValue[3:0]);
+logicalOr	orInst	(x[3:0], y[3:0], orValue[3:0]);
+logicalExor exorInst	(x[3:0], y[3:0], exorValue[3:0]);
+logicalNot	notInst	(z[7:0], notValue[7:0]);
 
 //instantiate an instance of the MUX. This selects the module which outputs to the 7 segment display.
-multiplexer muxLogicalInst1$7(operation[1:0], {4'b0, andValue}, {4'b0, orValue}, {4'b0, exorValue}, notValue[7:0], returnLogical);
+multiplexer muxLogicalInst1$7(operation[1:0], {4'b0, andValue}, {4'b0, orValue}, {4'b0, exorValue}, notValue[7:0], returnLogical[7:0]);
 
 endmodule

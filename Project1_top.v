@@ -17,21 +17,21 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	//output reg[1:0]MODE;			//register so we can map the KEY bits to MODE bits 
 	
 	wire [1:0]MODE;				//register so we can map the KEY bits to MODE bits (select between arithmetic.v, logical.v, comparison.v, magic.v) 
-	wire [3:0]X;					//Wire assignments						
-	wire [3:0]Y;
-	wire [3:0]Ynot;				//wire for Ynot;
-	wire [7:0]Z;	
-	wire [9:0]LED;
+	wire [3:0]X;					//Wire for X, the first four bits mapped from SW[3:0] (switch 0-3)						
+	wire [3:0]Y;					//Wire for Y, the second four bits mapped from SW[7:4] (switch 4-7)
+	wire [3:0]Ynot;				//wire for Ynot, the 2's compliment of Y
+	wire [7:0]Z;					//wire for Z, the 8-bit number mapped from SW[7:0] (switch 0-7)
+	wire [9:0]LED;					//Lire for the 10 LEDs on the board
 	wire [1:0]OPERATION;			//bits to select the operation of each module. eg. in Arithmetic.v,  select between add, subtract, multiply, divide
-	wire [7:0]arithmeticBinary; 
-	wire [7:0]logicalBinary; 
-	wire [7:0]comparisonBinary; 
-	wire [7:0]hexDisplay;
-	wire [9:0]LEDDisplay;
-	wire [1:0]ofldecimalPoint;
-	wire [1:0]decimalpointOut;
-	wire arithmeticOverflow;
-	wire LED9overflow;
+	wire [7:0]arithmeticBinary;//wire that carrries the result from the aritmetic module to the top module
+	wire [7:0]logicalBinary; 	//wire that carrries the result from the logical module to the top module
+	wire [7:0]comparisonBinary;//wire that carrries the result from the comparision module to the top module
+	wire [7:0]hexDisplay;		//wire that carrries the result from the hex mux to the seven segment decoder
+	wire [9:0]LEDDisplay;		//wire that carrries the result from the led mux to the LEDs
+	wire [1:0]ofldecimalPoint;	//wire that carrries the result from the aritmetic module to the overflow mux
+	wire [1:0]decimalpointOut;	//wire that carrries the result from the decimal point mux to directly to the 7-segment display bit 7
+	wire arithmeticOverflow;	//wire that carrries the result from the aritmetic module to the mux that controls LED 9
+	wire LED9overflow;			//wire that carrries the result from the LED9 mux to the bit that controls LED 9  
 	
 	//this code splits the bits which come from the switches on the DE10-LITE so that they
 	//can be processed in different modules.
