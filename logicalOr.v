@@ -4,14 +4,14 @@ ECEN 2350 Digital Logic
 March, 2018
 */
 
-module logicalOr (x, y, operation, returnOr);
+module logicalOr (x, y, returnOr);
 	input [3:0]x;
 	input [3:0]y;
-	input [1:0]operation;
+	//input [1:0]operation;
 	
 	output reg[3:0]returnOr;
 	
-	wire [3:0]orResult;
+	//wire [3:0]orResult;
 	
 	always @(*)
 		begin
