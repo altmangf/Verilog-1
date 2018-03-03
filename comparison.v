@@ -19,9 +19,9 @@ module comparison (x, y, operation, returnMax); //returnBoolean,
 
 
 //instantiate instances of logical modules.	
-logicalEqual	equalInst(x[3:0], y[3:0],equalBoolean);
-logicalGreater	greaterInst(x[3:0], y[3:0], greaterBoolean);
-logicalLessthan lessInst(x[3:0], y[3:0], lessthanBoolean);
+Equal	equalInst(x[3:0], y[3:0],equalBoolean);
+Greater	greaterInst(x[3:0], y[3:0], greaterBoolean);
+Lessthan lessInst(x[3:0], y[3:0], lessthanBoolean);
 max	maxInst(x[3:0], y[3:0], maxValue[3:0]);
 
 //instantiate an instance of the MUX. This selects the module which outputs to the 7 segment display.
