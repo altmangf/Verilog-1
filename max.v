@@ -7,21 +7,23 @@ March, 2018
 module max(x, y, maxValue);
 	input [3:0]x; 
 	input [3:0]y;
-	output reg [3:0] maxValue;
+	output reg [3:0]maxValue;
 	
 	//WE CANNOT USE THIS CODE! WE MUST DERIVE EQUATIONS
 	
 	
-	always @(x, y)
+	always @(*)
 	begin
-		if (x-y<0)
+		if (x<y) begin
 			maxValue[3:0] = y[3:0];
-		else if	(y-x<0)
+		end else if	(y<x) begin
 			maxValue[3:0] = x[3:0];
-		else if (y-x==0)
+		end else if (y==x) begin
 			maxValue[3:0] = 4'b00;
-		else
+		end else begin
 			maxValue = 4'b00;
+		
+		end
 	end
 		
 	
