@@ -4,19 +4,19 @@ ECEN 2350 Digital Logic
 March, 2018
 */
 
-module keyReader (key, mode);
+module keyReader (key, modeSelect);
 
 input [1:0]key;
-output reg [1:0]mode;
+output reg [1:0]modeSelect;
 
 
 always @(posedge key[0]) 
 		begin
-		mode[0] = ~mode[0];
+		modeSelect[0] = ~modeSelect[0];
 		end
 always @(posedge key[1])
 		begin
-		mode[1] = ~mode[1];
+		modeSelect[1] = ~modeSelect[1];
 		end
 		
 endmodule

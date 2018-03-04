@@ -16,10 +16,10 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	
 	//output reg[1:0]MODE;			//register so we can map the KEY bits to MODE bits 
 	
-	wire [1:0]MODE;				//register so we can map the KEY bits to MODE bits (select between arithmetic.v, logical.v, comparison.v, magic.v) 
+	wire [1:0]MODE;				//wireso we can map the KEY bits to MODE bits (select between arithmetic.v, logical.v, comparison.v, magic.v) 
 	wire [3:0]X;					//Wire for X, the first four bits mapped from SW[3:0] (switch 0-3)						
 	wire [3:0]Y;					//Wire for Y, the second four bits mapped from SW[7:4] (switch 4-7)
-	wire [4:0]Ynot;				//wire for Ynot, the 2's compliment of Y
+	wire [7:0]Ynot;				//wire for Ynot, the 2's compliment of Y
 	wire [7:0]Z;					//wire for Z, the 8-bit number mapped from SW[7:0] (switch 0-7)
 	wire [9:0]LED;					//Lire for the 10 LEDs on the board
 	wire [1:0]OPERATION;			//bits to select the operation of each module. eg. in Arithmetic.v,  select between add, subtract, multiply, divide
@@ -35,16 +35,16 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	
 	//this code splits the bits which come from the switches on the DE10-LITE so that they
 	//can be processed in different modules.
-	assign X = SW[3:0];			//sends bits 3-0 from switches to X
-	assign Y = SW[7:4];			//sends bits 7-4 from switches to Y
-	assign Z = SW[7:0];			//sends bits 7-0 from switches to Z
-	assign OPERATION = SW[9:8];//sets the OPERATION bits. OPERATION selects the operation that each mode displays. eg. addition, subtraction, multiplication, division for the Arithmetic module.
-	assign Ynot = ((~{1'b0,Y})+1'b1);	//makes a 2's compliment of Y for the subtractor
+	assign X[3:0] = SW[3:0];			//sends bits 3-0 from switches to X
+	assign Y[3:0] = SW[7:4];			//sends bits 7-4 from switches to Y
+	assign Z[7:0] = SW[7:0];			//sends bits 7-0 from switches to Z
+	assign OPERATION[1:0] = SW[9:8];//sets the OPERATION bits. OPERATION selects the operation that each mode displays. eg. addition, subtraction, multiplication, division for the Arithmetic module.
+	assign Ynot[7:0] = ((~{4'b0,Y})+1'b1);	//makes a 2's compliment of Y for the subtractor
 	
 	assign LED[7:0] = LEDDisplay[7:0];		//lights LED based on Sum from adder. for testing.
-	assign LED[8] = LED9overflow;				//lights LED9 if there is overflow from adder/subtractor
-	assign HEX0[7] = ~decimalpointOut[0];	//turns off decimal point on HEX0 for testing
-	assign HEX1[7] = ~decimalpointOut[1];	//turns off decimal point on HEX1 for testing
+	assign LED[9] = LED9overflow;				//lights LED9 if there is overflow from adder/subtractor
+	assign HEX0[7] = ~decimalpointOut[0];	//turn off decimal point on HEX0 for testing
+	assign HEX1[7] = ~decimalpointOut[1];	//turn off decimal point on HEX1 for testing
 	assign HEX4[7] = 1;							//turns off decimal point on HEX4
 	
 	//instantiate an instance of multiplexer. This decides which module will output to the 7-segment display. eg. Arithmetic, Logical, Comparison 
@@ -64,7 +64,7 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 
 	
 	//instantiate an instance of the arithmetic module
-	Arithmetic ArithmeticInst1(X[3:0], Y[3:0], Ynot[3:0], Z[7:0], OPERATION[1:0], arithmeticBinary[7:0], arithmeticOverflow, ofldecimalPoint[1:0]);
+	Arithmetic ArithmeticInst1(X[3:0], Y[3:0], Ynot[4:0], Z[7:0], OPERATION[1:0], arithmeticBinary[7:0], arithmeticOverflow, ofldecimalPoint[1:0]);
 	
 	
 	//instantiate an instance of the comparison module
