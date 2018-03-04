@@ -14,7 +14,7 @@ module logicalNot (z, returnNot);
 	
 	always @(*)
 		begin
-		returnNot = ~z;
+		returnNot = ~z[7:0];
 		end
 		
 endmodule

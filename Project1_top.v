@@ -48,10 +48,10 @@ module Project1_top(SW, KEY, HEX0, HEX1, HEX4, HEX5, LED);//, MODE);
 	assign HEX4[7] = 1;							//turns off decimal point on HEX4
 	
 	//instantiate an instance of multiplexer. This decides which module will output to the 7-segment display. eg. Arithmetic, Logical, Comparison 
-	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[3:0], {4'b0, comparisonBinary[3:0]}, 8'b0, hexDisplay[7:0]);
+	multiplexer muxHexDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[7:0], {4'b0, comparisonBinary[3:0]}, 8'b0, hexDisplay[7:0]);
 	
 	//instantiate an instance of multiplexer. This decides which module will output to the LED display. eg. Arithmetic, Logical, Comparison, magic 
-	multiplexer muxLEDDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[3:0], {4'b0, comparisonBinary[3:0]}, 8'b0, LEDDisplay[7:0]);
+	multiplexer muxLEDDisplayInst1$7(MODE[1:0], arithmeticBinary[7:0], logicalBinary[7:0], {4'b0, comparisonBinary[3:0]}, 8'b0, LEDDisplay[7:0]);
 	
 	//instantiate an instance of multiplexer. This decides which module will output to the decimal point. eg. Arithmetic, Logical, Comparison, 
 	multiplexer muxdecimalPointInst1$1(MODE[1:0], ofldecimalPoint[1:0], 2'b0, 2'b0, 2'b0, decimalpointOut[1:0]);
