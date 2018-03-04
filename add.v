@@ -11,11 +11,11 @@ module add(carryin, Xin, Yin, S, carryout);
 	input		[n-1:0]Yin;
 	output 	[n-1:0]S;
 	output carryout;
-	wire [n:0]C;
+	wire [n+1:0]C;//[n:0]C;
 	
 	genvar i;
 	assign C[0]=carryin;
-	assign carryout = C[n];
+	assign carryout = C[n+1];	//was C[n];
 	
 	generate
 		for(i = 0;i <= n-1;i=i+1)

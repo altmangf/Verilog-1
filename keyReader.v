@@ -6,7 +6,7 @@ March, 2018
 
 module keyReader (key, mode);
 
-input [0:1]key;
+input [1:0]key;
 output reg [1:0]mode;
 
 

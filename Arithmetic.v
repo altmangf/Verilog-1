@@ -8,7 +8,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdiv
 
 	input [3:0]x;
 	input [3:0]y;
-	input [3:0]ynot;
+	input [4:0]ynot;
 	input [7:0]z;
 	input	[1:0]operation;
 	
@@ -34,7 +34,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdiv
 	add addInst1(1'b0, x[3:0], y[3:0], sum[7:0], sumCarry); 
 	
 	//instantiate subtraction by using add.v with a 2's compliment
-	add subtractInst1(1'b0, x[3:0], ynot[3:0], difference[7:0], differenceCarry); 
+	add subtractInst1$5(1'b0, {1'b0,x[3:0]}, ynot[4:0], difference[7:0], differenceCarry); 
 	
 	//instantiate multiply.v
 	multiply multiplyInst1(z[7:0], product[7:0]);//, productOverflow);  
