@@ -31,7 +31,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdiv
 	assign remainder = z[0];
 	
 	//instantiate add.v
-	add#(4) addInst1(1'b0, x[3:0], y[3:0], sum[7:0], sumCarry); 
+	add#(5) addInst1(1'b0, x[3:0], y[3:0], sum[7:0], sumCarry); 
 	
 	//instantiate subtraction by using add.v with a 2's compliment
 	add subtractInst1$5(1'b0, {4'b0,x[3:0]}, ynot[7:0], difference[3:0], differenceCarry); 
