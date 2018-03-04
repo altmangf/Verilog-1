@@ -147,7 +147,6 @@ set_global_assignment -name VERILOG_FILE multiplexer.v
 set_global_assignment -name VERILOG_FILE max.v
 set_global_assignment -name VERILOG_FILE magic.v
 set_global_assignment -name VERILOG_FILE fullAdder.v
-set_global_assignment -name VERILOG_FILE divide.v
 set_global_assignment -name VERILOG_FILE Arithmetic.v
 set_global_assignment -name VERILOG_FILE addition.v
 set_global_assignment -name VERILOG_FILE add.v
@@ -229,4 +228,5 @@ set_global_assignment -name VERILOG_FILE LessThan.v
 set_global_assignment -name VERILOG_FILE Equal.v
 set_global_assignment -name VERILOG_FILE maxTT.v
 set_global_assignment -name VERILOG_FILE megaMaxMux.v
+set_global_assignment -name VERILOG_FILE divider.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

@@ -17,10 +17,19 @@ module maxTT(x, y, maxValue);
 	
 	always @(*) 
 	begin
-		if (maxValueBoolean == 1)
+		case (maxValueBoolean)
+		4'b0: maxValue = x;
+		2'b1: maxValue = y;
+		default maxValue = y;
+		endcase
+	
+	
+	/*
+		if (maxValueBoolean[3:0] == 4'b1)
 			maxValue = y[3:0];
-		else if (maxValueBoolean ==0)
+		else if (maxValueBoolean[3:0] == 4'b0)
 			maxValue = x[3:0];
+	*/
 	end
 
 	

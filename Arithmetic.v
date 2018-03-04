@@ -40,7 +40,7 @@ module Arithmetic(x, y, ynot, z, operation, returnValue, addSuboverflow, multdiv
 	multiply multiplyInst1(z[7:0], product[7:0]);//, productOverflow);  
 	
 	//instantiate divide.v
-	divide divideInst1(z[7:0], quotient[7:0]);//, remainder);
+	divider divideInst1(z[7:0], quotient[7:0]);//, remainder);
 	
 	//instantiate an instance of the MUX. This selects the module which outputs to the 7 segment display.
 	multiplexer muxAdderInst1$7(operation[1:0], sum[7:0], difference[7:0], product[7:0], quotient[7:0], returnValue[7:0]);
